@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.example</groupId>
+  <artifactId>spring2</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <properties>
+    <!-- dependency versions -->
+    <servlet.api.version>2.4</servlet.api.version>
+  </properties>
+
+  <dependencies>
+
+
+    <dependency>
+      <groupId>net.sf.json-lib</groupId>
+      <artifactId>json-lib</artifactId>
+      <version>2.4</version>
+      <!--不加下面这一项会报错，是因为json-lib支持版本是jdk1.5，所以要指定下版本-->
+      <classifier>jdk15</classifier>
+    </dependency>
+    <!-- requied start -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>${servlet.api.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- requied end -->
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.16.10</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.25</version>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.2.3</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>maven-jetty-plugin</artifactId>
+        <version>6.1.26</version>
+        <configuration>
+          <webDefaultXml>src/main/resources/webdefault.xml</webDefaultXml>
+          <contextPath>/</contextPath>
+          <connectors>
+            <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+              <port>8081</port>
+            </connector>
+          </connectors>
+          <scanIntervalSeconds>0</scanIntervalSeconds>
+          <scanTargetPatterns>
+            <scanTargetPattern>
+              <directory>src/main/webapp</directory>
+              <includes>
+                <include>**/*.xml</include>
+                <include>**/*.properties</include>
+              </includes>
+            </scanTargetPattern>
+          </scanTargetPatterns>
+          <systemProperties>
+            <systemProperty>
+              <name>
+                javax.xml.parsers.DocumentBuilderFactory
+              </name>
+              <value>
+                com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl
+              </value>
+            </systemProperty>
+            <systemProperty>
+              <name>
+                javax.xml.parsers.SAXParserFactory
+              </name>
+              <value>
+                com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl
+              </value>
+            </systemProperty>
+            <systemProperty>
+              <name>
+                javax.xml.transform.TransformerFactory
+              </name>
+              <value>
+                com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl
+              </value>
+            </systemProperty>
+            <systemProperty>
+              <name>org.eclipse.jetty.util.URI.charset</name>
+              <value>UTF-8</value>
+            </systemProperty>
+          </systemProperties>
+        </configuration>
+      </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                <source>6</source>
+                <target>6</target>
+            </configuration>
+        </plugin>
+    </plugins>
+  </build>
+</project>
